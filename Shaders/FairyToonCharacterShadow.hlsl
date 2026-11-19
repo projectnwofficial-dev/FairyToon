@@ -9,21 +9,22 @@
 
 #define FAIRYTOON_CHAR_SHADOW_SLICES 4
 
-// x slice count (0 = off), y 1 / atlas resolution, z softness, w strength. Params2: x debug view (1 = visibility only).
+// x slice count (0 = off), y 1 / atlas resolution, z softness, w strength.
+// Params2: x debug view (visibility only), y self-shadow only.
 float4 _FT_CharShadowParams;
 float4 _FT_CharShadowParams2;
 float4x4 _FT_CharShadowMatrix[FAIRYTOON_CHAR_SHADOW_SLICES];   // world -> atlas UV, compare depth
 float4 _FT_CharShadowRect[FAIRYTOON_CHAR_SHADOW_SLICES];       // tile in atlas UV: min xy, max xy
 float4 _FT_CharShadowLight[FAIRYTOON_CHAR_SHADOW_SLICES];      // xyz towards the projector, w texel size (m)
+float4 _FT_CharShadowOwners[FAIRYTOON_CHAR_SHADOW_SLICES];     // xy low and high halves of the caster's ID
 TEXTURE2D_SHADOW(_FT_CharShadowMap);
 SAMPLER_CMP(sampler_FT_CharShadowMap);
 
 // (the last visibility computed in this pixel, for the debug view)
 static half ftCharShadowVisibility = 1.0;
 
-// Visibility (1 lit) of a point from its character's projector, and the direction towards that projector (world up
-// when no map covers the point). Every slice whose tile holds the point is read and the darkest wins, so characters
-// standing close also shadow each other.
+// Visibility (1 lit) and direction of the darkest eligible projector. Camera-aligned projectors belong to
+// their caster, while main-light projectors share one direction and can shade nearby characters.
 half FairyToonCharShadow(float3 positionWS, float3 normalWS, out float3 lightDir)
 {
     lightDir = float3(0.0, 1.0, 0.0);
@@ -34,6 +35,11 @@ half FairyToonCharShadow(float3 positionWS, float3 normalWS, out float3 lightDir
     [loop]
     for (int i = 0; i < count; i++)
     {
+        if (_FT_CharShadowParams2.y > 0.5)
+        {
+            uint2 owner = (uint2)_FT_CharShadowOwners[i].xy;
+            if ((owner.x | (owner.y << 16)) != unity_RendererUserValue) continue;
+        }
         float4 light = _FT_CharShadowLight[i];
         // (receiver normal offset: one texel, three at grazing angles, so lit surfaces do not shadow themselves)
         float3 p = positionWS + normalWS * (light.w * (3.0 - 2.0 * saturate(dot(normalWS, light.xyz))));

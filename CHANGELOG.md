@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Camera-aligned character shadows sample only the caster's own atlas tile. The main-light atlas can still cast between characters, and Unity scene shadows are independent.
+- `FairyToonCharacter` uses the shader user value of its mesh renderers for the atlas owner while enabled and restores the previous value on disable.
+
 ## 0.2.0 (2026-11-17)
 
 - Endfield: **Exposure** on `FairyToonCharacter` (default 1) scales the normalised main light without changing the sun / shade state, plus **Follow Light Intensity** and **Reference Luminance** so a dim light gives a dim key. Global `_FT_EFExposure`.

@@ -17,7 +17,7 @@ namespace NW.FairyToon
         public bool enabled = true;
         [Tooltip("Atlas resolution. 8192 is a 256 MB depth texture.")]
         public FairyToonShadowResolution resolution = FairyToonShadowResolution._4096;
-        [Tooltip("CameraAligned places the projector above the viewer; MainLight follows URP's main light.")]
+        [Tooltip("CameraAligned places a self-shadow projector above the viewer. MainLight follows URP's main light and can shadow nearby characters.")]
         public FairyToonCharacterShadowLight lightMode = FairyToonCharacterShadowLight.CameraAligned;
         [Tooltip("Minimum and maximum camera-aligned projector elevation in degrees.")]
         public Vector2 pitchRange = new Vector2(30f, 35f);
@@ -65,6 +65,7 @@ namespace NW.FairyToon
         private static readonly int MatrixId = Shader.PropertyToID("_FT_CharShadowMatrix");
         private static readonly int RectId = Shader.PropertyToID("_FT_CharShadowRect");
         private static readonly int LightId = Shader.PropertyToID("_FT_CharShadowLight");
+        private static readonly int OwnersId = Shader.PropertyToID("_FT_CharShadowOwners");
         private static readonly int CasterVPId = Shader.PropertyToID("_FT_CharShadowCasterVP");
         private static readonly int CasterLightId = Shader.PropertyToID("_FT_CharShadowCasterLight");
         private static readonly int CasterBiasId = Shader.PropertyToID("_FT_CharShadowCasterBias");
@@ -93,6 +94,7 @@ namespace NW.FairyToon
             public readonly Matrix4x4[] matrices = new Matrix4x4[MaxCharacters];
             public readonly Vector4[] rects = new Vector4[MaxCharacters];
             public readonly Vector4[] lights = new Vector4[MaxCharacters];
+            public readonly Vector4[] owners = new Vector4[MaxCharacters];
             public int count;
             public int resolution;
             public int tileResolution;
@@ -185,7 +187,8 @@ namespace NW.FairyToon
                 data.tileResolution = tileResolution;
                 data.parameters = sliceCount == 0 ? Vector4.zero
                     : new Vector4(sliceCount, 1f / resolution, Mathf.Clamp01(settings.softness), Mathf.Clamp01(settings.strength));
-                data.parameters2 = new Vector4(settings.debugView ? 1f : 0f, 0f, 0f, 0f);
+                data.parameters2 = new Vector4(settings.debugView ? 1f : 0f,
+                    settings.lightMode == FairyToonCharacterShadowLight.CameraAligned ? 1f : 0f, 0f, 0f);
                 data.depthBias = Mathf.Clamp(settings.depthBias, 0f, 4f);
                 data.normalBias = Mathf.Clamp(settings.normalBias, 0f, 4f);
                 data.fallback = owner.CharacterShadowFallback;
@@ -201,6 +204,7 @@ namespace NW.FairyToon
                     data.matrices[i] = Matrix4x4.zero;
                     data.rects[i] = Vector4.zero;
                     data.lights[i] = Vector4.zero;
+                    data.owners[i] = Vector4.zero;
                     if (i >= sliceCount) { data.slices[i] = default; continue; }
                     var slice = slices[i];
                     data.slices[i] = slice;
@@ -215,6 +219,9 @@ namespace NW.FairyToon
                     data.rects[i] = new Vector4((float)x / resolution, (float)y / resolution,
                         (float)(x + tileResolution) / resolution, (float)(y + tileResolution) / resolution);
                     data.lights[i] = new Vector4(slice.towards.x, slice.towards.y, slice.towards.z, slice.texel);
+                    // Use two exactly representable floats to carry the 32-bit ID in a shader vector.
+                    uint shadowOwner = slice.character.ShadowOwner;
+                    data.owners[i] = new Vector4(shadowOwner & 0xffffu, shadowOwner >> 16, 0f, 0f);
                 }
                 builder.AllowPassCulling(false);
                 builder.AllowGlobalStateModification(true);
@@ -249,6 +256,7 @@ namespace NW.FairyToon
                     cmd.SetGlobalMatrixArray(MatrixId, pass.matrices);
                     cmd.SetGlobalVectorArray(RectId, pass.rects);
                     cmd.SetGlobalVectorArray(LightId, pass.lights);
+                    cmd.SetGlobalVectorArray(OwnersId, pass.owners);
                 });
             }
         }

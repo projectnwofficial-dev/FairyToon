@@ -34,6 +34,7 @@ namespace NW.FairyToon
         private readonly List<FairyToonCharacterLight> smallLights = new List<FairyToonCharacterLight>();
 
         private static readonly List<FairyToonCharacter> registry = new List<FairyToonCharacter>();
+        private static uint lastShadowOwner;
         // (created on first use: ShaderTagId may not be built while Unity constructs the component)
         private static ShaderTagId lightModeTag, shadowTag;
         private static bool tagsReady;
@@ -51,6 +52,7 @@ namespace NW.FairyToon
 
         internal static IReadOnlyList<FairyToonCharacter> Registry => registry;
         internal IReadOnlyList<ShadowDraw> ShadowDraws => shadowDraws;
+        internal uint ShadowOwner { get; private set; }
         public bool CastCharacterShadow { get => castCharacterShadow; set => castCharacterShadow = value; }
 
         internal struct ShadowDraw
@@ -67,6 +69,7 @@ namespace NW.FairyToon
             public MeshFilter filter;
             public Mesh mesh;
             public int submeshCount;
+            public uint previousShaderUserValue;
             public readonly List<Material> materials = new List<Material>();
         }
 
@@ -258,6 +261,11 @@ namespace NW.FairyToon
 
         private void OnEnable()
         {
+            if (ShadowOwner == 0)
+            {
+                ShadowOwner = ++lastShadowOwner;
+                if (ShadowOwner == 0) ShadowOwner = ++lastShadowOwner;
+            }
             if (!registry.Contains(this)) registry.Add(this);
             RefreshRenderers();
             Push();
@@ -268,6 +276,7 @@ namespace NW.FairyToon
         private void OnDisable()
         {
             registry.Remove(this);
+            RestoreShadowOwners();
             Shader.SetGlobalVector(LightingId, Vector4.zero);
             // (zero is "no change" for each of these)
             Shader.SetGlobalVector(LightOverrideId, Vector4.zero);
@@ -281,16 +290,49 @@ namespace NW.FairyToon
 
         public void RefreshRenderers()
         {
+            RestoreShadowOwners();
             var renderers = GetComponentsInChildren<Renderer>(true);
             rendererCache = new RendererCache[renderers.Length];
             boneCache.Clear();
             for (int i = 0; i < renderers.Length; i++)
             {
-                rendererCache[i] = new RendererCache { renderer = renderers[i], filter = renderers[i].GetComponent<MeshFilter>() };
+                var renderer = renderers[i];
+                rendererCache[i] = new RendererCache
+                {
+                    renderer = renderer,
+                    filter = renderer.GetComponent<MeshFilter>(),
+                    previousShaderUserValue = ReadShaderUserValue(renderer)
+                };
+                if (isActiveAndEnabled) WriteShaderUserValue(renderer, ShadowOwner);
                 if (renderers[i] is SkinnedMeshRenderer skinned) boneCache[skinned] = skinned.bones;
             }
             passCache.Clear();
             UpdateShadowDraws(true);
+        }
+
+        private void RestoreShadowOwners()
+        {
+            uint owner = ShadowOwner;
+            if (owner == 0) return;
+            foreach (var entry in rendererCache)
+            {
+                var renderer = entry.renderer;
+                if (renderer != null && ReadShaderUserValue(renderer) == owner)
+                    WriteShaderUserValue(renderer, entry.previousShaderUserValue);
+            }
+        }
+
+        private static uint ReadShaderUserValue(Renderer renderer) => renderer switch
+        {
+            SkinnedMeshRenderer skinned => skinned.GetShaderUserValue(),
+            MeshRenderer mesh => mesh.GetShaderUserValue(),
+            _ => 0u
+        };
+
+        private static void WriteShaderUserValue(Renderer renderer, uint value)
+        {
+            if (renderer is SkinnedMeshRenderer skinned) skinned.SetShaderUserValue(value);
+            else if (renderer is MeshRenderer mesh) mesh.SetShaderUserValue(value);
         }
 
         internal bool TryGetShadowBounds(out Bounds bounds)

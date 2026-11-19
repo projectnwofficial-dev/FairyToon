@@ -568,7 +568,7 @@ Shader "FairyToon/Refraction"
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Fog.hlsl"
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ProbeVolumeVariants.hlsl"
             #pragma multi_compile_instancing
-
+            #pragma instancing_options renderinglayer
             #define FAIRYTOON_PASS_FORWARD
             #include "FairyToonVariantInput.hlsl"
             #include "FairyToonVariants.hlsl"
@@ -608,7 +608,7 @@ Shader "FairyToon/Refraction"
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Fog.hlsl"
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ProbeVolumeVariants.hlsl"
             #pragma multi_compile_instancing
-
+            #pragma instancing_options renderinglayer
             #define FAIRYTOON_PASS_OUTLINE
             #include "FairyToonVariantInput.hlsl"
             #include "FairyToonPasses.hlsl"
