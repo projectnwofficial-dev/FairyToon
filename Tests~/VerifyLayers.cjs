@@ -276,12 +276,11 @@ test('Fur retains the saved outline setting without compiling or enabling an inv
 });
 
 test('Fur alpha-to-coverage follows Cutout and TwoPass PRE independently of the body', () => {
-    const expression = setup.match(/material\.SetInt\("_FurAlphaToMask", ([^;]+)\);/)?.[1];
-    assert.ok(expression, 'Fur alpha-to-coverage derivation');
-    const enabled = new Function('furMode', 'FurCutout', 'FurTransparent', 'material', 'Get', 'return ' + expression.replace(/\(int\)/g, ''));
-    for (const furMode of [0, 1, 2]) for (const body of [0, 1]) {
-        const actual = enabled(furMode, 1, 0, {}, (_, name) => name === '_AlphaToMask' ? body : 0);
-        assert.equal(actual, furMode !== 0 ? 1 : 0, 'Cutout and TwoPass PRE alpha-to-coverage are independent of body AlphaToMask');
+    for (const furMode of [0, 1, 2]) {
+        const material = queueMaterial(4, furMode, defaultRenderQueue(4, furMode));
+        setFurShellDefaults(material, furMode);
+        assert.equal(material.values._FurAlphaToMask, furMode === 0 ? 0 : 1);
+        assert.equal(material.values._FurZWrite, furMode === 0 ? 0 : 1);
     }
     const destination = setup.match(/material\.SetInt\("_FurDstBlendAlpha", ([^;]+)\);/)?.[1];
     const alphaBlend = new Function('mode', 'Transparent', 'BlendMode', 'return ' + destination.replace(/\(int\)/g, ''));
@@ -297,7 +296,7 @@ function variantPasses(variant) {
 }
 
 function csharpBody(name) {
-    const declaration = setup.match(new RegExp('(?:public|private) static [^\\n]+?\\b' + name + '\\('));
+    const declaration = setup.match(new RegExp('(?:public|private|internal) static [^\\n]+?\\b' + name + '\\('));
     assert.ok(declaration, 'missing C# method ' + name);
     const start = setup.indexOf('{', declaration.index);
     let depth = 1, end = start + 1;
@@ -341,8 +340,8 @@ function renderState(renderingMode, furMode = 0, zwrite = 1, queue = renderingMo
     const begin = setup.indexOf('int renderingMode = GetRenderingMode(material);');
     const body = setup.slice(begin, setup.indexOf('// (Endfield replaces toon shadow', begin))
         .replace(/\b(?:bool|int)\s+/g, 'let ').replace(/\(int\)/g, '');
-    new Function('material', 'GetRenderingMode', 'Get', 'SetKeyword', 'On', 'Mathf', 'BlendMode', 'RenderQueue', 'FairyToon', 'GetDefaultRenderQueue', 'IsManagedHairQueue',
-        ...Object.keys(constants), body)(material, () => renderingMode, (_, name) => values[name] || 0,
+    new Function('writeCoverageBlends', 'material', 'GetRenderingMode', 'Get', 'SetKeyword', 'On', 'Mathf', 'BlendMode', 'RenderQueue', 'FairyToon', 'GetDefaultRenderQueue', 'IsManagedHairQueue',
+        ...Object.keys(constants), body)(true, material, () => renderingMode, (_, name) => values[name] || 0,
         (_, name, value) => keywords[name] = value, () => false, { Clamp: (v, a, b) => Math.min(b, Math.max(a, v)), RoundToInt: Math.round },
         { One: 1, Zero: 0, SrcAlpha: 5, OneMinusSrcAlpha: 10 },
         { Geometry: 2000, AlphaTest: 2450, GeometryLast: 2500, Transparent: 3000 }, { CharacterShadowLightMode: 'CharacterShadow', CharacterMaskLightMode: 'CharacterMask' }, defaultRenderQueue, isManagedHairQueue,
@@ -655,7 +654,7 @@ test('special variants do not exceed common material keyword dimensions except R
     assert.ok(!/#pragma shader_feature[^\n]*\b_FT_REFLECTION\b/.test(gem), 'Gem uses its inherent optical environment reflection');
 });
 test('supported layer names and defaults match installed lilToon', () => {
-    assert.equal(names.length, 80);
+    assert.equal(names.length, 84);
     for (const name of names) {
         assert.ok(reference.has(name), name + ' missing in lilToon');
         assert.equal(current.get(name).value, reference.get(name).value, name + ' default');
@@ -1232,7 +1231,7 @@ test('BackfaceColor matches lilToon after emission in both models and leaves alp
     }
     const shade = core.slice(core.indexOf('half3 FairyToonShade('));
     assert.ok(shade.indexOf('return FairyToonBackfaceColor(s, l, col);') > shade.indexOf('FairyToonEmission(s, l, col)'));
-    assert.ok(read('Editor/FairyToonGUI.cs').includes('P("_BackfaceColor")'));
+    assert.ok(read('Editor/FairyToonGUI.cs').includes('P("_BackfaceColor", "Color")'));
 });
 
 test('transparent BackfaceColor matches post-premultiply lilToon RGB without changing coverage', () => {
@@ -1474,15 +1473,13 @@ test('Refraction backface color runs last with framebuffer alpha one while Gem r
 });
 
 
-test('Apply repairs invalid coverage queues and preserves authored transparent, optical and Fur ordering', () => {
-    const modes = [[0, 0, 2000], [1, 0, 2450], [2, 0, 3000], [3, 0, 2900],
-        [4, 0, 3000], [4, 1, 2450], [4, 2, 3000], [5, 0, 2900]];
-    for (const [mode, fur, expectedDefault] of modes) {
-        assert.equal(renderState(mode, fur, 1, -1).material.renderQueue, expectedDefault);
+test('Apply preserves inherited and explicit queues across coverage, optical and Fur modes', () => {
+    const modes = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [4, 1], [4, 2], [5, 0]];
+    for (const [mode, fur] of modes) {
+        assert.equal(renderState(mode, fur, 1, -1).material.rawRenderQueue, -1);
         for (const queue of [2000, 2450, 2460, 2461, 2462, 2463, 2464, 2465, 2466, 2500, 2501, 2600, 2900, 3000, 3100]) {
-            const expected = mode < 2 && queue > 2500 ? expectedDefault : mode === 2 && [2000, 2450].includes(queue) ? 3000 : queue;
             const first = renderState(mode, fur, 1, queue).material.renderQueue;
-            assert.equal(first, expected, JSON.stringify({ mode, fur, queue }));
+            assert.equal(first, queue, JSON.stringify({ mode, fur, queue }));
             assert.equal(renderState(mode, fur, 1, first).material.renderQueue, first, 'repeated Apply is idempotent');
         }
     }
@@ -1494,12 +1491,19 @@ test('Apply repairs invalid coverage queues and preserves authored transparent, 
 });
 
 
+function setFurShellDefaults(material, furMode) {
+    const body = csharpBody('SetFurShellDefaults').replace(/\bbool\s+/g, 'let ').replace(/\(int\)|(?<=\d)f\b/g, '');
+    const blend = { One: 1, Zero: 0, SrcAlpha: 5, OneMinusSrcAlpha: 10 };
+    new Function('material', 'furMode', 'BlendMode', ...Object.keys(renderConstants), body)(
+        material, furMode, blend, ...Object.values(renderConstants));
+}
+
 // Execute both public transition methods with the same queue effects as Unity's Material API.
 function queueTransition(material, selected, fur = false) {
     const shaderNames = ['FairyToon', 'FairyToon', 'FairyToon', 'FairyToon/Refraction', 'FairyToon/Fur', 'FairyToon/Gem'];
     const shaders = Object.fromEntries(shaderNames.map(name => [name, { name }]));
     const modeOf = m => m.shader.name === 'FairyToon' ? m.values._TransparentMode : shaderNames.indexOf(m.shader.name);
-    const bindings = { ...renderConstants, GetDefaultRenderQueue: defaultRenderQueue,
+    const bindings = { ...renderConstants, SetFurShellDefaults: setFurShellDefaults, GetDefaultRenderQueue: defaultRenderQueue,
         GetRenderingMode: modeOf, GetShaderName: mode => shaderNames[mode],
         IsFairyToonShader: shader => !!shaders[shader.name], Shader: { Find: name => shaders[name] },
         Get: (m, key) => m.values[key] || 0, Material: function(m) { return { ...m, values: { ...m.values } }; },
@@ -1513,7 +1517,7 @@ function queueTransition(material, selected, fur = false) {
     };
     const source = csharpBody(fur ? 'SetFurMode' : 'SetRenderingMode')
         .replace(/ \{ hideFlags = HideFlags.HideAndDontSave \}/g, '')
-        .replace(/System\.Array\.Empty<string>\(\)/g, '[]')
+        .replace(/System\.Array\.Empty<string>\(\)/g, '[]').replace(/(?<=\d)f\b/g, '')
         .replace(/\b(?:int|bool|string|var)\s+/g, 'let ');
     return new Function(...Object.keys(bindings), 'material', fur ? 'furMode' : 'renderingMode', source)
         (...Object.values(bindings), material, selected);
@@ -1523,6 +1527,7 @@ function queueMaterial(mode, fur, queue) {
         shader: { name: ['FairyToon', 'FairyToon', 'FairyToon', 'FairyToon/Refraction', 'FairyToon/Fur', 'FairyToon/Gem'][mode] },
         rawRenderQueue: queue,
         get renderQueue() { return this.rawRenderQueue; }, set renderQueue(value) { this.rawRenderQueue = value; },
+        HasProperty() { return true; }, SetInt(k, v) { this.values[k] = v; },
         SetFloat(k, v) { this.values[k] = v; }, SetShaderPassEnabled() {},
         CopyPropertiesFromMaterial(other) { this.values = { ...other.values }; this.rawRenderQueue = other.rawRenderQueue; },
     };
@@ -1590,7 +1595,7 @@ test('See-through provenance distinguishes managed and authored 2460 without tag
         csharpBody('SetHairQueueTag').replace(/\bbool\s+/g, 'let ').replace(/\(int\)/g, ''));
     const make = (queue, provenance = '', priorHair = false, priorMask = false, transparent = false) => {
         const passes = { hair: priorHair, mask: priorMask }, tags = provenance === '' ? {} : { [hairQueueTag]: provenance };
-        return { renderQueue: queue, role: 2, tags, passes, HasProperty: () => true, GetTexture: () => ({}), SetInt() {},
+        return { renderQueue: queue, get rawRenderQueue() { return this.renderQueue; }, role: 2, tags, passes, HasProperty: () => true, GetTexture: () => ({}), SetInt() {},
             GetTag: (key, _, fallback) => tags[key] ?? fallback, SetOverrideTag: (key, value) => tags[key] = value,
             IsKeywordEnabled: () => transparent,
             GetShaderPassEnabled: name => !!passes[name], SetShaderPassEnabled: (name, value) => passes[name] = value };
@@ -1752,7 +1757,7 @@ test('mixed Rendering and Fur popups change every target only after a user selec
         const body = gui.slice(start + 1, end - 1)
             .replace(/foreach \(Object target in m_Editor.targets\)/g, 'for (const target of m_Editor.targets)')
             .replace(/ as Material/g, '').replace(/\b(?:int|bool|var)\s+/g, 'let ')
-            .replace(/new\[\] \{([^}]+)\}/g, '[$1]');
+            .replace(/new\[\]\s*\{([^}]+)\}/g, '[$1]');
         for (const mixed of [false, true]) for (const chooseFirst of [false, true]) {
             const materials = [{ mode: 1 }, { mode: mixed ? 2 : 1 }];
             const edits = [], undo = [];
@@ -1772,6 +1777,8 @@ test('mixed Rendering and Fur popups change every target only after a user selec
                 } },
                 Undo: { RecordObjects: targets => undo.push(targets.length) }, EditorUtility: { SetDirty() {} },
                 MaterialEditor: { GetMaterialProperties: () => [] }, GUIUtility: { ExitGUI() {} },
+                RowVisible: () => true, FairyToonL10n: { Text: (key) => key },
+                Number: (prop) => prop.floatValue,
                 Debug: { LogError: () => assert.fail('known rendering mode must exist') },
             };
             new Function(...Object.keys(bindings), body)(...Object.values(bindings));
@@ -2294,11 +2301,11 @@ test('fractional dissolve selectors round like lilToon and real Mermaid position
 
 test('dissolve position GUI edits one mixed-selection component and noise controls stay uniform defaults', () => {
     const gui=read('Editor/FairyToonGUI.cs'),position=hlslBody(gui,'DissolvePosition');
-    const onGUI=hlslBody(gui.slice(gui.indexOf('class FairyToonGUI')),'OnGUI');
+    const onGUI=hlslBody(gui,'DrawAdvanced');
     const order=['Glitter();','Gem();','Outline();','Dissolve();','Refraction();','Fur();','SeeThrough();','Stencil();','Rendering();'];
     for(let i=1;i<order.length;i++) assert.ok(onGUI.indexOf(order[i])>onGUI.indexOf(order[i-1]),'lilToon section order '+order[i]);
-    assert.match(onGUI,/if \(m_Advanced\) Dissolve\(\);/);
-    assert.match(hlslBody(gui,'Dissolve'),/BeginSection\("Dissolve", "Dissolve"\)/);
+    assert.match(onGUI,/if \(AnyRunsWholeDissolve\(\)\) Dissolve\(\);/);
+    assert.match(hlslBody(gui,'Dissolve'),/BeginSection\("Dissolve", "sDissolve"/);
     assert.doesNotMatch(hlslBody(gui,'MainColor'),/DissolveControls/);
 
     assert.match(position,/DissolveComponentMixed\(property, component\)/);
@@ -2427,8 +2434,8 @@ test('dissolve notices use final target coverage after conversion profiles and i
     assert.match(notice, /HasActiveDissolve\(source, "_Dissolve"\)/);
     assert.match(notice, /mode == FairyToonMaterialSetup\.Opaque \|\| mode == FairyToonMaterialSetup\.Gem/);
     const gui = read('Editor/FairyToonGUI.cs');
-    assert.match(gui, /SelectedRenderingMode\(FairyToonMaterialSetup\.Opaque\) \|\| SelectedRenderingMode\(FairyToonMaterialSetup\.Gem\)/);
-    assert.match(gui, /HelpBox\("Dissolve is ignored on Opaque and Gem materials/);
+    assert.match(gui, /mode != FairyToonMaterialSetup\.Opaque && mode != FairyToonMaterialSetup\.Gem/);
+    assert.match(gui, /EverySelectedIsGem\(\)/);
 });
 
 
@@ -2442,7 +2449,7 @@ test('Mermaid gamma HDR colour flags match lilToon in every shader without chang
     const upload = (text, name, rgba, linear) => rgba.map((x, i) => linear && i < 3 && !isHDR(text, name) ? decode(x) : x);
     const cases = [['_BacklightColor', [7.377215, 7.377215, 7.377215, 1]], ['_Color2nd', [0.7329843, 0.9367802, 2, 1]], ['_Color3rd', [0.2, 0.6, 3, 0.4]],
         ['_DissolveColor', [0.67450976, 0.795309, 2.9960787, 1]], ['_Main2ndDissolveColor', [.3, 1.4, 2.7, 0]],
-        ['_Main3rdDissolveColor', [2.2, .4, 3.1, .2]], ['_EmissionColor', [2, 2, 2, 1]], ['_Emission2ndColor', [0.2, 2, 32, 0.3]]];
+        ['_Main3rdDissolveColor', [2.2, .4, 3.1, .2]], ['_GlitterColor', [16, 16, 16, 1]], ['_EmissionColor', [2, 2, 2, 1]], ['_Emission2ndColor', [0.2, 2, 32, 0.3]]];
     for (const suffix of ['', 'Refraction', 'Fur', 'Gem']) {
         const text = read('Shaders/FairyToon' + suffix + '.shader');
         for (const [name, saved] of cases) {
@@ -2458,8 +2465,8 @@ test('Mermaid gamma HDR colour flags match lilToon in every shader without chang
     }
     const gui = read('Editor/FairyToonGUI.cs');
     assert.match(gui, /class FairyToonHDRDrawer : MaterialPropertyDrawer/);
-    assert.match(gui, /EditorGUI\.ColorField\(position, new GUIContent\(label\), prop\.colorValue, true, true, true\)/);
-    assert.match(gui, /TexturePropertyWithHDRColor\(new GUIContent\(label\), tex, other, true\)/);
+    assert.match(gui, /EditorGUI\.ColorField\(field, GUIContent\.none, value, true, true, true\)/);
+    assert.match(gui, /FairyToonHDRDrawer\.Draw\([^;]+\)\) other\.colorValue = color/);
     assert.ok(!/prop\.colorValue\s*=.*\.(?:linear|gamma)/.test(gui), 'drawer preserves raw authored values');
     const coreAndInput = read('Shaders/FairyToonCore.hlsl') + input;
     assert.ok(!/(?:SRGBToLinear|GammaToLinearSpace)\(_(?:Color2nd|Color3rd|BacklightColor|(?:Main2nd|Main3rd)?DissolveColor)\)/.test(coreAndInput), 'no double decode');
@@ -3154,9 +3161,9 @@ test('3D Iris has synchronized defaults and an independent Toon and Endfield ver
     for(const uniform of Object.keys(irisUniforms)) assert.ok(gui.includes('"'+uniform+'"'),uniform+' visible');
     for(const uniform of Object.keys(irisUniforms))
         assert.match(gui,new RegExp('P\\("'+uniform+'", "[^"]+", "[^"]+"\\)'),uniform+' has an on-screen tooltip');
-    const ordered=['_EFIrisDepth','_EFPupilLayer','_EFPupilDepth','_EFIrisRefraction','_EFIrisScale','_EFIrisRim','_EFIrisEdgeFade','_EFIrisVertical','_EFIrisMaxShift','_EFIrisEdge','_EFIrisEdgeSoftness','_EFIrisGaze','Cornea','Cornea matcap','Avatar data','_EFIrisFrame','Pupil fold'];
+    const ordered=['_EFIrisDepth','_EFPupilLayer','_EFPupilDepth','_EFIrisRefraction','_EFIrisScale','_EFIrisRim','_EFIrisEdgeFade','_EFIrisVertical','_EFIrisMaxShift','_EFIrisEdge','_EFIrisEdgeSoftness','_EFIrisGaze','Cornea','Cornea matcap','ft.IrisAvatar','_EFIrisFrame','Pupil fold'];
     for(let i=1;i<ordered.length;i++) assert.ok(gui.indexOf('"'+ordered[i-1]+'"')<gui.indexOf('"'+ordered[i]+'"'),ordered[i]+' inspector order');
-    assert.match(gui,/BeginSection\("IrisAvatarData", "Avatar data"\)/);
+    assert.match(gui,/BeginSection\("IrisAvatarData", "ft\.IrisAvatar", null, false, PropertyBlock\.IrisAvatar\)/);
     assert.match(gui,/iris\.hasMixedValue/);
     assert.ok(gui.includes('Radius (iris units) from which the painted rim stays on the eye surface; set just inside the dark ring. 1.5 = off (the whole iris sinks).'));
     assert.ok(gui.includes('Maximum lookup radius inside the painted pattern; keep it inside the painted dark ring and clear of painted highlight dots.'));
@@ -3170,11 +3177,11 @@ test('3D Iris has synchronized defaults and an independent Toon and Endfield ver
 
 test('3D Iris Toon inspector reuses the iris controls after main layers and keeps Endfield controls', () => {
     const gui=read('Editor/FairyToonGUI.cs');
-    const draw=gui.slice(gui.indexOf('public override void OnGUI(MaterialEditor'));
-    assert.ok(draw.indexOf('MainColorLayer("3rd")')<draw.indexOf('if (!endfield) ToonIris()'));
-    assert.ok(draw.indexOf('if (!endfield) ToonIris()')<draw.indexOf('if (endfield) Endfield()'));
+    const draw=hlslBody(gui,'DrawAdvanced');
+    assert.match(hlslBody(gui,'MainColor'), /MainColorLayer\("3rd"\)/);
+    assert.match(draw,/MainColor\(\);[\s\S]*if \(showToon && !EverySelectedIsGem\(\)\) ToonIris\(\);[\s\S]*if \(showEndfield\) Endfield\(\);/);
     const toon=hlslBody(gui,'ToonIris');
-    assert.match(toon,/BeginSection\("Iris", "3D Iris", Prop\("_EFIris"\)\)/);
+    assert.match(toon,/BeginSection\("Iris", "ft\.Iris", Prop\("_EFIris"\), false, PropertyBlock\.Iris\)/);
     assert.match(toon,/Iris\(false\)/);
     assert.match(gui,/private void Iris\(bool showToggle = true\)/);
     assert.match(hlslBody(gui,'Iris'),/if \(showToggle\) P\("_EFIris"/);

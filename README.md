@@ -12,7 +12,7 @@ Toon-first URP shaders using lilToon-named properties: FairyToon plus separate R
 - Face shadow map: Shadow > Mask Type = Face SDF, `_ShadowStrengthMask` in lilToon's format (R / G thresholds for light from either side, B blend back to normal shading, A strength). Add `FairyToonFaceShadow` to the avatar root so the map follows the head bone.
 - Outline width source `_OutlineVertexR2Width` = 3 reads a smoothed normal from UV7 (tangent space, W = coherence). Bake it with **Assets > FairyToon > Bake Smooth Normals (UV7)** on a model: it welds vertices by position across every mesh of the model (so split meshes such as clothes share a normal), averages angle-weighted face normals and runs again on every reimport. Low coherence (hard corners) tapers the line (`_OutlineCornerTaper`).
 - Outline Width Mode (`_OutlineMode`): Object (lilToon, cm) or Screen: `_OutlinePixelWidth` pixels at 1080p, even on screen, floored at `_OutlineMinPixels` whole pixels so thin lines do not crawl, faded out between `_OutlineFadeStart` and `_OutlineFadeEnd` metres.
-- Inspector: lilToon's foldout order with a Simple / Advanced switch at the top (Advanced shows every property, Stencil and the derived blend state).
+- Inspector: lilToon 2.4.1's top bar (Advanced / Preset / Shader Setting) and foldout order. Advanced shows every property. Preset is a placeholder. Shader Setting is FairyToon-only information (language lives in the top bar, including Auto, which follows the Unity Editor; there is no global variant strip). Each section has a gear menu: Copy, Paste, Paste (with texture), Reset, and Open manual where lilToon has a manual anchor. English, Japanese, and Simplified Chinese. See `THIRD_PARTY_NOTICES.md`.
 
 ## Wetness
 
@@ -50,7 +50,8 @@ Toon-first URP shaders using lilToon-named properties: FairyToon plus separate R
 - One `_FT_MAIN_LAYERS` keyword covers both main layers in Forward and body coverage passes; Outline has no main-layer variants. `_FT_EMISSION` covers both emissions in Forward and SeeThroughHair. Runtime toggles keep 3rd-only and emission-2nd-only materials independent. Main2nd and Emission 1st use their own texture samplers; Main3rd, Emission 2nd and masks retain `sampler_MainTex`, and gradients reuse `sampler_ft_linear_repeat`. This keeps the optical variants within the DX11 sampler budget.
 - UV1..UV3 use two packed interpolators only in variants that can read extra UVs. Normal Map 2nd / Glitter have UV0 and extra-UV alternatives within their existing feature groups; UV0-only materials with main layers / emission off carry no added context in Forward / SeeThroughHair or DepthNormals. Main layers / emission retain their shared UV1..UV3 interface. Coverage geometry is separate: DepthNormals reuses its normal and handedness, and only clipped main layers require world position. Other body coverage passes need normal / handedness and position for decals / MatCap UVs. Outline and the motion hull carry none. Emission Rim uses absolute shading N.V; main MatCap UVs remain geometric.
 - Both emission masks always use raw UV0 followed by their own scale / offset / scroll / rotation, including zero-speed masks. This matches stock lilToon, which defines `LIL_FEATURE_ANIMATE_EMISSION_MASK_UV`.
-- Skipped: layer distance fade / AudioLink / decal atlas animation and sub-parameters; emission parallax / AudioLink; lilToon's gradient-authoring metadata (`_eg*` / `_e2g*`). Assign the baked gradient texture directly. The converter continues reporting active unsupported sub-options as dropped values.
+- Main Color 2nd/3rd Reset UV clears UV Mode, six Decal flags and Angle. It restores Decal Animation to (1, 1, 1, 30) and Decal Sub-Parameters to (1, 1, 0.01, 1). Tiling, offset and Scroll/Rotate keep their values. The two vectors are stored for material compatibility. Atlas animation playback is unsupported.
+- Skipped: layer distance fade / AudioLink; emission parallax / AudioLink; lilToon's gradient-authoring metadata (`_eg*` / `_e2g*`). Assign the baked gradient texture directly. The converter continues reporting active unsupported sub-options as dropped values.
 - Existing converted materials need `FairyToonMaterialSetup.Apply` (or an inspector edit) to refresh the shared keywords. Name-based conversion copies all supported values and texture transforms; no game or lilToon assembly dependency is added.
 
 Older FairyToon materials can change appearance: emission masks now multiply RGBA (mask alpha previously had no effect), Emission Main Strength uses the layered albedo before Rim Shade (previously after it), and static emission masks use raw UV0 plus their own transform (previously transformed main UV). The single-alpha Add result is preserved apart from these intentional input changes.
@@ -213,6 +214,7 @@ A tight depth map per character, so the fringe, chin and hair shadow the charact
 
 - Put `FairyToonCharacter` on the avatar root (Cast Character Shadow on) and keep the **FairyToon** renderer feature; its Character Shadow settings hold the rest. Up to four characters share one 32-bit depth atlas (2048 / 4096 / 8192; 8192 is 256 MB).
 - Light: **Camera Aligned** (default, as in Endfield): a projector above the camera, yaw from the character's centre to the camera, pitch clamped to 30-35°, so shadows fall down and away from the viewer whatever the sun does; turning the camera without moving it changes nothing. **Main Light**: the sun, as a high-resolution self-shadow.
+- Camera Aligned samples each character’s own atlas tile. Main Light allows characters to cast shadows on each other.
 - Camera Fit fits each map to the part of the character in view, with snapped sizes and texel-snapped positions against shimmer.
 - Filtering: a 7×7 tent (16 bilinear compares, 64 depth tests), then a narrow smoothstep around the 0.5 contour, so the edge is a crisp toon line without stair steps even when a texel covers several pixels; Softness widens it back into a penumbra. The shadow fades in with `saturate(N·L × 4)` towards the projector, so the toon ramp alone shades the terminator.
 - Per material: `_CharShadowReceive` (0..1, default 1). Materials without FairyToon's `CharacterShadow` pass cast through a hidden opaque caster; transparent materials do not cast.
@@ -259,7 +261,7 @@ Limits: Forward / Forward+ only (in Deferred `UniversalForwardOnly` is the main 
 ## lilToon converter
 
 - **Assets > FairyToon > Convert lilToon Material (copy / in place)** on materials, folders, prefabs or models. Copies go to `<source folder>/FairyToon/<name>.mat` and are refreshed on re-run; in place records Undo. **Tools > FairyToon > Convert lilToon Materials…** adds an output folder, the options and the last report.
-- Transparent variants with "hair" in the material name become Cutout + alpha to coverage (`_Cutoff` 0.5); on by default, a window option.
+- By default, transparent variants with "hair" in the material name convert to Cutout with alpha to coverage and `_Cutoff` 0.5. Queues above 2500 move to 2450. Existing opaque-range ordering such as 2460 is preserved.
 - **Convert Profile** (Create > FairyToon > Convert Profile): per-material overrides for what the lilToon material cannot carry, such as a face SDF painted later. Entries reference the source material; every profile in the project is applied, the window's profile last.
 - Each batch writes `Logs/FairyToonConvert.md`: unsupported features in use, non-default values dropped (only for features that are on), applied heuristics and profile overrides.
 
@@ -294,6 +296,8 @@ Property mapping (from the shader's actual Properties block; identical names cop
 | Main Color 2nd | `_Main2ndTexShouldCopy` -> `_Main2ndTexShouldCopy` | 1:1 |
 | Main Color 2nd | `_Main2ndTexShouldFlipMirror` -> `_Main2ndTexShouldFlipMirror` | 1:1 |
 | Main Color 2nd | `_Main2ndTexShouldFlipCopy` -> `_Main2ndTexShouldFlipCopy` | 1:1 |
+| Main Color 2nd | `_Main2ndTexDecalAnimation` -> `_Main2ndTexDecalAnimation` | Stored for Reset UV and conversion |
+| Main Color 2nd | `_Main2ndTexDecalSubParam` -> `_Main2ndTexDecalSubParam` | Stored for Reset UV and conversion |
 | Main Color 2nd | `_Main2ndTexIsMSDF` -> `_Main2ndTexIsMSDF` | 1:1 |
 | Main Color 2nd | `_Main2ndBlendMask` -> `_Main2ndBlendMask` | 1:1 |
 | Main Color 2nd | `_Main2ndTexBlendMode` -> `_Main2ndTexBlendMode` | 1:1 |
@@ -312,6 +316,8 @@ Property mapping (from the shader's actual Properties block; identical names cop
 | Main Color 3rd | `_Main3rdTexShouldCopy` -> `_Main3rdTexShouldCopy` | 1:1 |
 | Main Color 3rd | `_Main3rdTexShouldFlipMirror` -> `_Main3rdTexShouldFlipMirror` | 1:1 |
 | Main Color 3rd | `_Main3rdTexShouldFlipCopy` -> `_Main3rdTexShouldFlipCopy` | 1:1 |
+| Main Color 3rd | `_Main3rdTexDecalAnimation` -> `_Main3rdTexDecalAnimation` | Stored for Reset UV and conversion |
+| Main Color 3rd | `_Main3rdTexDecalSubParam` -> `_Main3rdTexDecalSubParam` | Stored for Reset UV and conversion |
 | Main Color 3rd | `_Main3rdTexIsMSDF` -> `_Main3rdTexIsMSDF` | 1:1 |
 | Main Color 3rd | `_Main3rdBlendMask` -> `_Main3rdBlendMask` | 1:1 |
 | Main Color 3rd | `_Main3rdTexBlendMode` -> `_Main3rdTexBlendMode` | 1:1 |
@@ -565,14 +571,14 @@ Properties absent from a source variant use FairyToon's shader defaults; profile
 | Gem | Separate scene-colour dispersion, cubemap / probe reflection and particle path; copied reflection switches are retained rather than forced on. |
 | Keywords | Clear source keywords; rebuild from FairyToon properties through `FairyToonMaterialSetup.Apply`. |
 | Blend / depth | Rendering setup derives `_SrcBlend`, `_DstBlend`, `_SrcBlendAlpha`, `_DstBlendAlpha`; Opaque / Cutout force `_ZWrite = 1`; Transparent preserves copied `_ZWrite`. `_AlphaToMask` is preserved only for Cutout. |
-| Queue / tags | Conversion copies the effective lilToon queue before Apply. Transparent moves inherited 2000/2450 to 3000, and 2460 only when prior FairyToon Hair assignment is known; authored lilToon Transparent 2460 and 2461?2466 remain. Opaque / Cutout queues above 2500 return to 2000 / 2450. A private `FairyToonManagedHairQueue` tag records automatic Hair 2460 ownership; legacy fallback uses prior nontransparent Hair pass state, and conversion explicitly clears that ownership. Raw queue -1 derives the shader default. Explicit Rendering Mode / Fur Mode transitions migrate canonical defaults. Refraction / Gem / Fur retain their separate queue rules; RenderType follows coverage. |
+| Queue / tags | Conversion copies the effective lilToon queue. Converting transparent hair to Cutout moves queues above 2500 to 2450. An authored 2460 is preserved. A private `FairyToonManagedHairQueue` tag tracks automatic Hair ordering. Conversion clears that ownership. Explicit Rendering Mode / Fur Mode changes migrate canonical defaults. RenderType follows coverage. |
 | Passes | Opaque / Cutout and all Fur modes enable body DepthOnly / DepthNormals / MotionVectors; ordinary Transparent and optical variants disable them. Fur keeps body shadow passes; optical variants disable shadows. Fur body and Gem PRE own SRPDefaultUnlit; other modes derive outline enablement. |
 
 Not converted:
 
 | lilToon feature | Result |
 |---|---|
-| Main HSVG / gradation, layer distance fade / AudioLink, decal atlas animation | Unsupported non-default sub-options are reported; supported main layers / decals copy by name. |
+| Main HSVG / gradation, layer distance fade / AudioLink, decal atlas animation | Supported main layers and decals copy by name. Decal atlas vectors are retained on the material, and active non-default playback parameters are reported as unsupported. |
 | Emission parallax / AudioLink and gradient-authoring metadata | Both emissions, UV animation, blink and baked gradient textures copy; unsupported sub-options remain reported. |
 | Whole-material / layer dissolve | Modes 1/2/3 copy by name: mask, UV point/line, object-space point/line, scrolling noise and gamma-HDR edge colour. Root coverage remains inactive on Opaque/Gem/Fur shells; layer dissolve supports Opaque, but skips Gem/Fur shells. |
 | Distance fade, AudioLink, parallax / POM, main 1st UV animation | Dropped; distance-fade strength is additionally checked. |
@@ -653,7 +659,7 @@ Run `node --test Packages/com.nw.fairytoon/Tests~/VerifyLayers.cjs Packages/com.
 
 ## Credits
 
-- lilToon by lilxyzw (MIT, https://github.com/lilxyzw/lilToon): property names and defaults, inspector layout, toon shading, rim, MatCap, reflection, face shadow, refraction / blur, geometry fur and gem formulas.
+- lilToon by lilxyzw (MIT, https://github.com/lilxyzw/lilToon): property names and defaults, inspector layout, toon shading, rim, MatCap, reflection, face shadow, refraction / blur, geometry fur and gem formulas. Inspector wording and the copy / paste menu adapted from lilToon 2.4.1 are listed in `THIRD_PARTY_NOTICES.md`. FairyToon's own code still has no license in this repository.
 - SeeThroughHair 1.5.2 by goorm (https://goorm.me/docs/see-through-hair), ported with permission: stencil roles, early-Z, view-angle fade and fake shadow.
 - Endfield shading model: structure and constants from public analyses of Arknights: Endfield (Hypergryph) character rendering by LRyuki ("终末地角色渲染分析 通用材质") and qiudashu233 ("从零模仿复刻实现自己的终末地人物卡通渲染"), both on Zhihu; hair band layout (head-sphere normal, two lobes, flat top) after 图灵技术手记 ("头发各向异性——仿终末地", Zhihu); hair anti-sparkle lobe widening, the self-shadow N·L fade and the smooth-normal bake (weld, angle weights, coherence) after Ronald Burns' Endfield-style toon renderer write-up; the camera-aligned character projector, its 64-sample filter and the Endfield outline colour after Floraison's frame-capture analysis (floraison.io). Our own code; no game assets or shader code used. Environment BRDF: Brian Karis' analytic fit ("Physically Based Shading on Mobile", Epic Games).
 - Wetness ideas: ZMD rain-suite porosity and normal-Y rain weighting, plus KWS2 water-height/soak-line integration. Used only as look and design references; no ZMD assets or code were copied. Wet shading, gravity-UV rivulets, water-film coat, procedural droplet glints and runtime state are our own implementation.
@@ -666,7 +672,7 @@ Reflection scalar values remain serialized unchanged: lilToon's `[Gamma]` flags 
 
 Toon and Endfield both use URP position-aware probe blending, box projection and atlas lookup. Only nonclustered Toon retains the lilToon empty-legacy-probe custom-cube fallback; an explicit custom-cube override works in every path. Endfield retains its own environment BRDF and ambient multiplier. Optional shared Reflection layers use the corrected reflectance and cubemap sampling in either model. No material reconversion is needed for these shader fixes. See [SleeveParityAudit.md](Tests~/SleeveParityAudit.md) for material-specific arithmetic, source locations and remaining visual checks. Run `node Packages/com.nw.fairytoon/Tests~/VerifyLayers.cjs` for offline regressions; `Tests~/CompileShaders.ps1` also accepts `-ColorSpace Gamma` and `-NativeHDR`. These do not validate Unity import or GPU output.
 
-For scripted mode changes, use `FairyToonMaterialSetup.SetRenderingMode` / `SetFurMode`. To explicitly request a fresh mode default, set `material.renderQueue = -1` before `Apply`; direct property changes followed by `Apply` retain authored draw order subject to coverage repair: Transparent inherited 2000/2450/managed Hair 2460 moves to 3000, and Opaque/Cutout queues above 2500 move to 2000/2450. The existing See-through Hair rule still enforces a minimum of 2460 for opaque/cutout hair so role edits retain stencil ordering; special variants have no See-through passes and bypass that rule.
+For scripted mode changes, use `FairyToonMaterialSetup.SetRenderingMode` or `SetFurMode`. Explicit transitions migrate canonical default queues. Ordinary `Apply` preserves From Shader (raw queue -1) and explicit queues. Opaque/Cutout See-through Hair raises explicit queues below 2460 to its managed slot. Special variants bypass the See-through passes.
 
 ## Mermaid parity
 

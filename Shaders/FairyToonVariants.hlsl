@@ -164,7 +164,7 @@ half3 FairyToonOpticalRim(FairyToonSurface s, FairyToonLight l, half3 col, half 
 {
     half4 rimColor = _RimColor;
     half4 rimIndirColor = _RimIndirColor;
-    half4 rimTex = SAMPLE_TEXTURE2D(_RimColorTex, sampler_MainTex, s.uvMain);
+    half4 rimTex = SAMPLE_TEXTURE2D(_RimColorTex, sampler_MainTex, s.uvMain * _RimColorTex_ST.xy + _RimColorTex_ST.zw);
     rimColor *= rimTex;
     rimIndirColor *= rimTex;
     rimColor.rgb = lerp(rimColor.rgb, rimColor.rgb * s.emissionAlbedo, _RimMainStrength);

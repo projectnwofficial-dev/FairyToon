@@ -211,8 +211,10 @@ CBUFFER_START(UnityPerMaterial)
     half   _RimShadeBlur;
     half   _RimShadeFresnelPower;
 
-    // Rim light
+    // Rim light. _RimColorTex_ST is unconditional so every pass of a shader shares one UnityPerMaterial layout.
+    // Default material value is (1, 1, 0, 0), Unity's scale/offset for a texture declared without NoScaleOffset.
     half4  _RimColor;
+    float4 _RimColorTex_ST;
     half   _RimBorder;
     half   _RimBlur;
     half   _RimFresnelPower;
@@ -382,6 +384,17 @@ CBUFFER_START(UnityPerMaterial)
     half4  _EFSSSColor;
     half   _EFSSSStrength;
     half   _EFFaceSDFScale;
+    half   _EFMultiBounceAO;
+    half   _EFContactAO;
+    half   _EFContactAORadius;
+    half   _EFContactAOBias;
+    half   _EFCurvature;
+    half   _EFCurvatureScale;
+    half   _EFEnvContrast;
+    half4  _EFMetalGrazingColor;
+    half   _EFFabricSheen;
+    half   _EFClearcoat;
+    half   _EFClearcoatSmoothness;
 
     // See-through hair (FairyToon)
     half   _SeeThroughRole;
@@ -476,6 +489,11 @@ CBUFFER_START(UnityPerMaterial)
     half   _EFOutlineFlatten;
     half4  _EFOutlinePull;
     FT_VARIANT_PROPERTIES
+    // Stored lilToon layer metadata. Atlas playback is not sampled by the shader.
+    float4 _Main2ndTexDecalAnimation;
+    float4 _Main2ndTexDecalSubParam;
+    float4 _Main3rdTexDecalAnimation;
+    float4 _Main3rdTexDecalSubParam;
 CBUFFER_END
 
 // Endfield character globals from FairyToonCharacter: x day strength (1 sun, 0 shade), y top light strength in the

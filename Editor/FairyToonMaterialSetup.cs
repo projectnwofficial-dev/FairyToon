@@ -56,6 +56,46 @@ namespace NW.FairyToon.Editor
         }
 
         /// <summary>Swaps variants while retaining saved named values, including textures and their scale/offset.</summary>
+        /// <summary>Same default-queue rule as <see cref="SetRenderingMode"/> when coverage changes on the main shader.</summary>
+        public static void MigrateMainCoverageQueue(Material material, int previousMode, int previousQueue, int previousRawQueue)
+        {
+            if (material == null || !IsFairyToonShader(material.shader)) return;
+            int mode = GetRenderingMode(material);
+            if (previousMode > Transparent || mode > Transparent || previousMode == mode) return;
+            bool useDefaultQueue = previousRawQueue < 0 || previousQueue == GetDefaultRenderQueue(previousMode);
+            // -1 is the native From Shader value. A mode change that wants the canonical queue sets it explicitly.
+            material.renderQueue = useDefaultQueue ? GetDefaultRenderQueue(mode) : previousQueue;
+        }
+
+        /// <summary>Rebuilds the current mode's queue, instancing and keywords. Unlike <see cref="SetRenderingMode"/>, the same mode is not a no-op.</summary>
+        public static void ResetRendering(Material material)
+        {
+            if (material == null || !IsFairyToonShader(material.shader)) return;
+            int mode = GetRenderingMode(material);
+            int furMode = Mathf.Clamp(Mathf.RoundToInt(Get(material, "_FurMode")), FurTransparent, FurTwoPass);
+            material.enableInstancing = false;
+            material.renderQueue = GetDefaultRenderQueue(mode, furMode);
+            material.SetFloat("_ZTest", (int)CompareFunction.LessEqual);
+            material.SetFloat("_OffsetFactor", 0f);
+            material.SetFloat("_OffsetUnits", 0f);
+            // Gem's shader and lilToon both default ZWrite to 0. Every other mode starts at 1.
+            material.SetFloat("_ZWrite", mode == Gem ? 0f : 1f);
+            if (mode == Gem && material.HasProperty("_Cull")) material.SetFloat("_Cull", 0f);
+            // Fur and Gem hide the Outline section but keep its saved values. Reset must not change them.
+            if (mode != Fur && mode != Gem && material.HasProperty("_OutlineCull")) material.SetFloat("_OutlineCull", 1f);
+            if (mode == Fur)
+            {
+                material.SetFloat("_FurZTest", (int)CompareFunction.LessEqual);
+                material.SetFloat("_FurOffsetFactor", 0f);
+                material.SetFloat("_FurOffsetUnits", 0f);
+                material.SetFloat("_FurColorMask", 15f);
+                material.SetFloat("_FurBlendOp", (int)BlendOp.Add);
+                material.SetFloat("_FurBlendOpAlpha", (int)BlendOp.Add);
+                SetFurShellDefaults(material, furMode);
+            }
+            Apply(material);
+        }
+
         public static bool SetRenderingMode(Material material, int renderingMode)
         {
             if (material == null || !IsFairyToonShader(material.shader)) return false;
@@ -85,8 +125,14 @@ namespace NW.FairyToon.Editor
                 finally { Object.DestroyImmediate(snapshot); }
             }
             if (renderingMode <= Transparent) material.SetFloat("_TransparentMode", renderingMode);
+            // A mode change restores that mode's depth default. A later edit of ZWrite is left alone by Apply.
+            if (renderingMode == Opaque || renderingMode == Cutout)
+                material.SetFloat("_ZWrite", 1f);
+            else if (renderingMode == Gem)
+                material.SetFloat("_ZWrite", 0f);
             // Explicit transitions migrate canonical defaults; Apply also repairs incompatible coverage queues.
-            material.renderQueue = useDefaultQueue ? -1 : previousQueue;
+            material.renderQueue = useDefaultQueue ? GetDefaultRenderQueue(renderingMode, furMode) : previousQueue;
+            if (renderingMode == Fur) SetFurShellDefaults(material, furMode);
             Apply(material);
             return true;
         }
@@ -100,12 +146,62 @@ namespace NW.FairyToon.Editor
             bool useDefaultQueue = material.rawRenderQueue < 0
                 || material.renderQueue == GetDefaultRenderQueue(Fur, previousMode);
             material.SetFloat("_FurMode", furMode);
-            if (useDefaultQueue) material.renderQueue = -1;
+            if (useDefaultQueue) material.renderQueue = GetDefaultRenderQueue(Fur, furMode);
+            SetFurShellDefaults(material, furMode);
             Apply(material);
             return true;
         }
 
-        public static void Apply(Material material)
+        // The Cutout shell and the TwoPass first shell write depth and alpha to coverage.
+        internal static void SetFurShellDefaults(Material material, int furMode)
+        {
+            bool writeShellDepth = furMode == FurCutout || furMode == FurTwoPass;
+            if (material.HasProperty("_FurZWrite")) material.SetFloat("_FurZWrite", writeShellDepth ? 1f : 0f);
+            if (material.HasProperty("_FurAlphaToMask")) material.SetFloat("_FurAlphaToMask", writeShellDepth ? 1f : 0f);
+            if (material.HasProperty("_FurSrcBlend"))
+                material.SetInt("_FurSrcBlend", furMode == FurTransparent ? (int)BlendMode.SrcAlpha : (int)BlendMode.One);
+            if (material.HasProperty("_FurDstBlend"))
+                material.SetInt("_FurDstBlend", furMode == FurTransparent ? (int)BlendMode.OneMinusSrcAlpha : (int)BlendMode.Zero);
+            if (material.HasProperty("_FurSrcBlendAlpha")) material.SetInt("_FurSrcBlendAlpha", (int)BlendMode.One);
+            if (material.HasProperty("_FurDstBlendAlpha")) material.SetInt("_FurDstBlendAlpha", (int)BlendMode.OneMinusSrcAlpha);
+        }
+
+        internal static void SetCoverageBlends(Material material)
+        {
+            if (material == null || !IsFairyToonShader(material.shader)) return;
+            int mode = Mathf.RoundToInt(Get(material, "_TransparentMode"));
+            bool gem = GetRenderingMode(material) == Gem;
+            bool fur = GetRenderingMode(material) == Fur;
+            int furMode = Mathf.Clamp(Mathf.RoundToInt(Get(material, "_FurMode")), FurTransparent, FurTwoPass);
+            if (gem)
+            {
+                material.SetInt("_SrcBlend", (int)BlendMode.One);
+                material.SetInt("_DstBlend", (int)BlendMode.One);
+                return;
+            }
+            if (fur)
+            {
+                material.SetInt("_SrcBlend", furMode == FurTransparent || mode == Transparent ? (int)BlendMode.SrcAlpha : (int)BlendMode.One);
+                material.SetInt("_DstBlend", furMode == FurTransparent || mode == Transparent ? (int)BlendMode.OneMinusSrcAlpha : (int)BlendMode.Zero);
+                material.SetInt("_SrcBlendAlpha", (int)BlendMode.One);
+                material.SetInt("_DstBlendAlpha", (int)BlendMode.OneMinusSrcAlpha);
+                return;
+            }
+            if (mode == Transparent)
+            {
+                material.SetInt("_SrcBlend", (int)BlendMode.SrcAlpha);
+                material.SetInt("_DstBlend", (int)BlendMode.OneMinusSrcAlpha);
+                material.SetInt("_SrcBlendAlpha", (int)BlendMode.One);
+                material.SetInt("_DstBlendAlpha", (int)BlendMode.OneMinusSrcAlpha);
+                return;
+            }
+            material.SetInt("_SrcBlend", (int)BlendMode.One);
+            material.SetInt("_DstBlend", (int)BlendMode.Zero);
+            material.SetInt("_SrcBlendAlpha", (int)BlendMode.One);
+            material.SetInt("_DstBlendAlpha", (int)BlendMode.Zero);
+        }
+
+        public static void Apply(Material material, bool writeCoverageBlends = true)
         {
             if (material == null || !IsFairyToonShader(material.shader)) return;
 
@@ -117,48 +213,45 @@ namespace NW.FairyToon.Editor
             bool furTwoPass = fur && furMode == FurTwoPass;
             // Read the previous Apply state before the coverage keyword is updated below.
             bool managedHairQueue = IsManagedHairQueue(material);
-            bool deriveQueue = material.rawRenderQueue < 0;
-            if (deriveQueue) material.renderQueue = GetDefaultRenderQueue(renderingMode, furMode);
+            // rawRenderQueue < 0 is Unity's From Shader. Leave it so the popup can stay on that choice.
+            bool inheritQueue = material.rawRenderQueue < 0;
             if (special)
             {
                 material.SetFloat("_TransparentMode", fur && furMode == FurCutout ? Cutout : Transparent);
             }
             int mode = Mathf.RoundToInt(Get(material, "_TransparentMode"));
-            if (!special)
-            {
-                int queue = material.renderQueue;
-                bool coverageDefault = queue == (int)RenderQueue.Geometry || queue == (int)RenderQueue.AlphaTest;
-                if (mode == Transparent)
-                {
-                    // Authored low queues (including lilToon's Transparent 2460) retain their order.
-                    if (queue <= (int)RenderQueue.GeometryLast && (coverageDefault || managedHairQueue))
-                        material.renderQueue = (int)RenderQueue.Transparent;
-                }
-                else if (queue > (int)RenderQueue.GeometryLast)
-                    material.renderQueue = mode == Cutout ? (int)RenderQueue.AlphaTest : (int)RenderQueue.Geometry;
-            }
+            // Explicit queues, including a custom Geometry value on a Transparent material, stay put.
+            // Only the managed see-through hair queue moves when coverage becomes Transparent.
+            // Mode switches set their own queue in SetRenderingMode before this runs.
+            if (!special && !inheritQueue && managedHairQueue && mode == Transparent)
+                material.renderQueue = (int)RenderQueue.Transparent;
             SetKeyword(material, "_ALPHATEST_ON", mode == Cutout);
             SetKeyword(material, "_SURFACE_TYPE_TRANSPARENT", mode == Transparent);
             if (mode == Transparent)
             {
-                material.SetInt("_SrcBlend", (int)BlendMode.SrcAlpha);
-                material.SetInt("_DstBlend", (int)BlendMode.OneMinusSrcAlpha);
-                material.SetInt("_SrcBlendAlpha", (int)BlendMode.One);
-                material.SetInt("_DstBlendAlpha", (int)BlendMode.OneMinusSrcAlpha);
+                if (writeCoverageBlends)
+                {
+                    material.SetInt("_SrcBlend", (int)BlendMode.SrcAlpha);
+                    material.SetInt("_DstBlend", (int)BlendMode.OneMinusSrcAlpha);
+                    material.SetInt("_SrcBlendAlpha", (int)BlendMode.One);
+                    material.SetInt("_DstBlendAlpha", (int)BlendMode.OneMinusSrcAlpha);
+                }
                 material.SetInt("_AlphaToMask", 0);
                 material.SetOverrideTag("RenderType", "Transparent");
             }
             else
             {
-                material.SetInt("_SrcBlend", (int)BlendMode.One);
-                material.SetInt("_DstBlend", (int)BlendMode.Zero);
-                material.SetInt("_SrcBlendAlpha", (int)BlendMode.One);
-                material.SetInt("_DstBlendAlpha", (int)BlendMode.Zero);
-                material.SetInt("_ZWrite", 1);
+                if (writeCoverageBlends)
+                {
+                    material.SetInt("_SrcBlend", (int)BlendMode.One);
+                    material.SetInt("_DstBlend", (int)BlendMode.Zero);
+                    material.SetInt("_SrcBlendAlpha", (int)BlendMode.One);
+                    material.SetInt("_DstBlendAlpha", (int)BlendMode.Zero);
+                }
                 if (mode == Opaque) material.SetInt("_AlphaToMask", 0);
                 material.SetOverrideTag("RenderType", mode == Cutout ? "TransparentCutout" : "Opaque");
             }
-            if (gem)
+            if (gem && writeCoverageBlends)
             {
                 // PRE clears the silhouette; every front/interior face then accumulates, as in lilToon Gem.
                 material.SetInt("_SrcBlend", (int)BlendMode.One);
@@ -175,19 +268,15 @@ namespace NW.FairyToon.Editor
                 // The base surface and shell geometry have independent render states, as in lilToon's URP Fur.
                 // lilToon's LIL_RENDER 2 body returns premultiplied RGB under One/OneMinusSrcAlpha.
                 // FairyToon returns straight RGB, so SrcAlpha produces the same framebuffer contribution.
-                material.SetInt("_SrcBlend", mode == Transparent ? (int)BlendMode.SrcAlpha : (int)BlendMode.One);
-                material.SetInt("_DstBlend", mode == Transparent ? (int)BlendMode.OneMinusSrcAlpha : (int)BlendMode.Zero);
-                material.SetInt("_SrcBlendAlpha", (int)BlendMode.One);
-                material.SetInt("_DstBlendAlpha", (int)BlendMode.OneMinusSrcAlpha);
+                if (writeCoverageBlends)
+                {
+                    material.SetInt("_SrcBlend", mode == Transparent ? (int)BlendMode.SrcAlpha : (int)BlendMode.One);
+                    material.SetInt("_DstBlend", mode == Transparent ? (int)BlendMode.OneMinusSrcAlpha : (int)BlendMode.Zero);
+                    material.SetInt("_SrcBlendAlpha", (int)BlendMode.One);
+                    material.SetInt("_DstBlendAlpha", (int)BlendMode.OneMinusSrcAlpha);
+                }
                 material.SetInt("_ZWrite", 1);
                 material.SetInt("_AlphaToMask", furMode == FurCutout ? 1 : 0);
-                // The remaining imported Fur render settings stay editable.
-                material.SetInt("_FurSrcBlend", furMode == FurTransparent ? (int)BlendMode.SrcAlpha : (int)BlendMode.One);
-                material.SetInt("_FurDstBlend", furMode == FurTransparent ? (int)BlendMode.OneMinusSrcAlpha : (int)BlendMode.Zero);
-                material.SetInt("_FurSrcBlendAlpha", (int)BlendMode.One);
-                material.SetInt("_FurDstBlendAlpha", (int)BlendMode.OneMinusSrcAlpha);
-                material.SetInt("_FurZWrite", furMode == FurTransparent ? 0 : 1);
-                material.SetInt("_FurAlphaToMask", furMode != FurTransparent ? 1 : 0);
             }
             // (transparent surfaces stay out of the depth prepass, SSAO normals and object motion)
             bool depthPasses = fur || mode != Transparent;
@@ -291,7 +380,8 @@ namespace NW.FairyToon.Editor
             else ResetManagedStencil(material);
 
             int hairQueue = (int)RenderQueue.AlphaTest + 10;
-            if (hair && mode != Transparent && material.renderQueue < hairQueue)
+            // An explicit queue below 2460 is the managed hair slot. From Shader (raw -1) stays inherited.
+            if (hair && mode != Transparent && material.rawRenderQueue >= 0 && material.renderQueue < hairQueue)
             {
                 material.renderQueue = hairQueue;
                 managedHairQueue = true;

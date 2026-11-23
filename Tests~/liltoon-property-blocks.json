@@ -1,0 +1,3559 @@
+{
+  "_AAStrength": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_AlphaBoostFA": {
+    "texture": false,
+    "blocks": [
+      "Lighting"
+    ]
+  },
+  "_AlphaMask": {
+    "texture": true,
+    "blocks": [
+      "MainColor",
+      "AlphaMask"
+    ]
+  },
+  "_AlphaMaskMode": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "AlphaMask"
+    ]
+  },
+  "_AlphaMaskScale": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "AlphaMask"
+    ]
+  },
+  "_AlphaMaskValue": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "AlphaMask"
+    ]
+  },
+  "_AlphaToMask": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_Anisotropy2MatCap": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_Anisotropy2MatCap2nd": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_Anisotropy2Reflection": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_Anisotropy2ndBitangentWidth": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_Anisotropy2ndShift": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_Anisotropy2ndShiftNoiseScale": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_Anisotropy2ndSpecularStrength": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_Anisotropy2ndTangentWidth": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_AnisotropyBitangentWidth": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_AnisotropyScale": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_AnisotropyScaleMask": {
+    "texture": true,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_AnisotropyShift": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_AnisotropyShiftNoiseMask": {
+    "texture": true,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_AnisotropyShiftNoiseScale": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_AnisotropySpecularStrength": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_AnisotropyTangentMap": {
+    "texture": true,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_AnisotropyTangentWidth": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_ApplyReflection": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_ApplySpecular": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_ApplySpecularFA": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_AsOverlay": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_AsUnlit": {
+    "texture": false,
+    "blocks": [
+      "Lighting"
+    ]
+  },
+  "_AudioLink2Emission": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLink2Emission2nd": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLink2Emission2ndGrad": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLink2EmissionGrad": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLink2Main2nd": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLink2Main3rd": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLink2Vertex": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkAsLocal": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkDefaultValue": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkLocalMap": {
+    "texture": true,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkLocalMapParams": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkMask": {
+    "texture": true,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkMask_ScrollRotate": {
+    "texture": true,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkMask_UVMode": {
+    "texture": true,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkStart": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkUVMode": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkUVParams": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkVertexStart": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkVertexStrength": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkVertexUVMode": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_AudioLinkVertexUVParams": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_BackfaceColor": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_BackfaceForceShadow": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_BacklightBackfaceMask": {
+    "texture": false,
+    "blocks": [
+      "Backlight"
+    ]
+  },
+  "_BacklightBlur": {
+    "texture": false,
+    "blocks": [
+      "Backlight"
+    ]
+  },
+  "_BacklightBorder": {
+    "texture": false,
+    "blocks": [
+      "Backlight"
+    ]
+  },
+  "_BacklightColor": {
+    "texture": false,
+    "blocks": [
+      "Backlight"
+    ]
+  },
+  "_BacklightColorTex": {
+    "texture": true,
+    "blocks": [
+      "Backlight"
+    ]
+  },
+  "_BacklightDirectivity": {
+    "texture": false,
+    "blocks": [
+      "Backlight"
+    ]
+  },
+  "_BacklightMainStrength": {
+    "texture": false,
+    "blocks": [
+      "Backlight"
+    ]
+  },
+  "_BacklightNormalStrength": {
+    "texture": false,
+    "blocks": [
+      "Backlight"
+    ]
+  },
+  "_BacklightReceiveShadow": {
+    "texture": false,
+    "blocks": [
+      "Backlight"
+    ]
+  },
+  "_BacklightViewStrength": {
+    "texture": false,
+    "blocks": [
+      "Backlight"
+    ]
+  },
+  "_BaseColor": {
+    "texture": false,
+    "blocks": []
+  },
+  "_BaseColorMap": {
+    "texture": true,
+    "blocks": []
+  },
+  "_BaseMap": {
+    "texture": true,
+    "blocks": []
+  },
+  "_BeforeExposureLimit": {
+    "texture": false,
+    "blocks": [
+      "Lighting",
+      "Rendering"
+    ]
+  },
+  "_BlendOp": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_BlendOpAlpha": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_BlendOpAlphaFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_BlendOpFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering",
+      "Lighting"
+    ]
+  },
+  "_Bump2ndMap": {
+    "texture": true,
+    "blocks": [
+      "NormalMap",
+      "NormalMap2nd"
+    ]
+  },
+  "_Bump2ndMap_UVMode": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "NormalMap2nd"
+    ]
+  },
+  "_Bump2ndScale": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "NormalMap2nd"
+    ]
+  },
+  "_Bump2ndScaleMask": {
+    "texture": true,
+    "blocks": [
+      "NormalMap",
+      "NormalMap2nd"
+    ]
+  },
+  "_BumpMap": {
+    "texture": true,
+    "blocks": [
+      "NormalMap",
+      "NormalMap1st"
+    ]
+  },
+  "_BumpScale": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "NormalMap1st"
+    ]
+  },
+  "_Color": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor1st"
+    ]
+  },
+  "_Color2nd": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Color3rd": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_ColorMask": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_Cull": {
+    "texture": false,
+    "blocks": [
+      "Rendering",
+      "Base"
+    ]
+  },
+  "_Cutoff": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_DissolveColor": {
+    "texture": false,
+    "blocks": [
+      "Dissolve"
+    ]
+  },
+  "_DissolveMask": {
+    "texture": true,
+    "blocks": [
+      "Dissolve"
+    ]
+  },
+  "_DissolveNoiseMask": {
+    "texture": true,
+    "blocks": [
+      "Dissolve"
+    ]
+  },
+  "_DissolveNoiseMask_ScrollRotate": {
+    "texture": false,
+    "blocks": [
+      "Dissolve"
+    ]
+  },
+  "_DissolveNoiseStrength": {
+    "texture": false,
+    "blocks": [
+      "Dissolve"
+    ]
+  },
+  "_DissolveParams": {
+    "texture": false,
+    "blocks": [
+      "Dissolve"
+    ]
+  },
+  "_DissolvePos": {
+    "texture": false,
+    "blocks": [
+      "Dissolve"
+    ]
+  },
+  "_DistanceFade": {
+    "texture": false,
+    "blocks": [
+      "DistanceFade"
+    ]
+  },
+  "_DistanceFadeColor": {
+    "texture": false,
+    "blocks": [
+      "DistanceFade"
+    ]
+  },
+  "_DistanceFadeMode": {
+    "texture": false,
+    "blocks": [
+      "DistanceFade"
+    ]
+  },
+  "_DistanceFadeRimColor": {
+    "texture": false,
+    "blocks": [
+      "DistanceFade"
+    ]
+  },
+  "_DistanceFadeRimFresnelPower": {
+    "texture": false,
+    "blocks": [
+      "DistanceFade"
+    ]
+  },
+  "_DitherMaxValue": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_DitherTex": {
+    "texture": true,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_DstBlend": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_DstBlendAlpha": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_DstBlendAlphaFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_DstBlendFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_Emission2ndBlend": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndBlendMask": {
+    "texture": true,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndBlendMask_ScrollRotate": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndBlendMode": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndBlink": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndColor": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndFluorescence": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndGradSpeed": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndGradTex": {
+    "texture": true,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndMainStrength": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndMap": {
+    "texture": true,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndMap_ScrollRotate": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndMap_UVMode": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndParallaxDepth": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_Emission2ndUseGrad": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_EmissionBlend": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionBlendMask": {
+    "texture": true,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionBlendMask_ScrollRotate": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionBlendMode": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionBlink": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionColor": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionFluorescence": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionGradSpeed": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionGradTex": {
+    "texture": true,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionMainStrength": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionMap": {
+    "texture": true,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionMap_ScrollRotate": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionMap_UVMode": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionParallaxDepth": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EmissionUseGrad": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_EnvRimBlur": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_EnvRimBorder": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_FakeShadowVector": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_FlipNormal": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_FurAO": {
+    "texture": false,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurAlphaToMask": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurBlendOp": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurBlendOpAlpha": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurBlendOpAlphaFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurBlendOpFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurColorMask": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurCull": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurCutoutLength": {
+    "texture": false,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurDstBlend": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurDstBlendAlpha": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurDstBlendAlphaFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurDstBlendFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurGravity": {
+    "texture": false,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurLayerNum": {
+    "texture": false,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurLengthMask": {
+    "texture": true,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurMask": {
+    "texture": true,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurNoiseMask": {
+    "texture": true,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurOffsetFactor": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurOffsetUnits": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurRandomize": {
+    "texture": false,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurRimAntiLight": {
+    "texture": false,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurRimColor": {
+    "texture": false,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurRimFresnelPower": {
+    "texture": false,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurRootOffset": {
+    "texture": false,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurSrcBlend": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurSrcBlendAlpha": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurSrcBlendAlphaFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurSrcBlendFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurStencilComp": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_FurStencilFail": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_FurStencilPass": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_FurStencilReadMask": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_FurStencilRef": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_FurStencilWriteMask": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_FurStencilZFail": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_FurTouchStrength": {
+    "texture": false,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurVector": {
+    "texture": false,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurVectorScale": {
+    "texture": false,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurVectorTex": {
+    "texture": true,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_FurZClip": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurZTest": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_FurZWrite": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_GSAAStrength": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_GemChromaticAberration": {
+    "texture": false,
+    "blocks": [
+      "Gem"
+    ]
+  },
+  "_GemEnvColor": {
+    "texture": false,
+    "blocks": [
+      "Gem"
+    ]
+  },
+  "_GemEnvContrast": {
+    "texture": false,
+    "blocks": [
+      "Gem"
+    ]
+  },
+  "_GemParticleColor": {
+    "texture": false,
+    "blocks": [
+      "Gem"
+    ]
+  },
+  "_GemParticleLoop": {
+    "texture": false,
+    "blocks": [
+      "Gem"
+    ]
+  },
+  "_GemVRParallaxStrength": {
+    "texture": false,
+    "blocks": [
+      "Gem"
+    ]
+  },
+  "_GlitterAngleRandomize": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterApplyShape": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterApplyTransparency": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterAtras": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterBackfaceMask": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterColor": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterColorTex": {
+    "texture": true,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterColorTex_UVMode": {
+    "texture": true,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterEnableLighting": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterMainStrength": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterNormalStrength": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterParams1": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterParams2": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterPostContrast": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterScaleRandomize": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterSensitivity": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterShadowMask": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterShapeTex": {
+    "texture": true,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterUVMode": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_GlitterVRParallaxStrength": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_IDMask1": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMask2": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMask3": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMask4": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMask5": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMask6": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMask7": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMask8": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskCompile": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskControlsDissolve": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskFrom": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskIndex1": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskIndex2": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskIndex3": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskIndex4": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskIndex5": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskIndex6": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskIndex7": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskIndex8": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskIsBitmap": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskPrior1": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskPrior2": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskPrior3": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskPrior4": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskPrior5": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskPrior6": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskPrior7": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_IDMaskPrior8": {
+    "texture": false,
+    "blocks": [
+      "IDMask"
+    ]
+  },
+  "_Invisible": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_LightDirectionOverride": {
+    "texture": false,
+    "blocks": [
+      "Lighting"
+    ]
+  },
+  "_LightMaxLimit": {
+    "texture": false,
+    "blocks": [
+      "Lighting"
+    ]
+  },
+  "_LightMinLimit": {
+    "texture": false,
+    "blocks": [
+      "Lighting"
+    ]
+  },
+  "_Main2ndBlendMask": {
+    "texture": true,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndDissolveColor": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndDissolveMask": {
+    "texture": true,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndDissolveNoiseMask": {
+    "texture": true,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndDissolveNoiseMask_ScrollRotate": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndDissolveNoiseStrength": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndDissolveParams": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndDissolvePos": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndDistanceFade": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndEnableLighting": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTex": {
+    "texture": true,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTexAlphaMode": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTexAngle": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTexBlendMode": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTexDecalAnimation": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTexDecalSubParam": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTexIsDecal": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTexIsLeftOnly": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTexIsMSDF": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTexIsRightOnly": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTexShouldCopy": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTexShouldFlipCopy": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTexShouldFlipMirror": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTex_Cull": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTex_ScrollRotate": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main2ndTex_UVMode": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_Main3rdBlendMask": {
+    "texture": true,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdDissolveColor": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdDissolveMask": {
+    "texture": true,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdDissolveNoiseMask": {
+    "texture": true,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdDissolveNoiseMask_ScrollRotate": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdDissolveNoiseStrength": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdDissolveParams": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdDissolvePos": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdDistanceFade": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdEnableLighting": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTex": {
+    "texture": true,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTexAlphaMode": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTexAngle": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTexBlendMode": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTexDecalAnimation": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTexDecalSubParam": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTexIsDecal": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTexIsLeftOnly": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTexIsMSDF": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTexIsRightOnly": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTexShouldCopy": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTexShouldFlipCopy": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTexShouldFlipMirror": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTex_Cull": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTex_ScrollRotate": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_Main3rdTex_UVMode": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_MainColorAdjustMask": {
+    "texture": true,
+    "blocks": [
+      "MainColor",
+      "MainColor1st"
+    ]
+  },
+  "_MainGradationStrength": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor1st"
+    ]
+  },
+  "_MainGradationTex": {
+    "texture": true,
+    "blocks": [
+      "MainColor",
+      "MainColor1st"
+    ]
+  },
+  "_MainTex": {
+    "texture": true,
+    "blocks": [
+      "MainColor",
+      "MainColor1st"
+    ]
+  },
+  "_MainTexHSVG": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor1st"
+    ]
+  },
+  "_MainTex_ScrollRotate": {
+    "texture": false,
+    "blocks": [
+      "UV"
+    ]
+  },
+  "_MatCap2ndApplyTransparency": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndBackfaceMask": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndBlend": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndBlendMask": {
+    "texture": true,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndBlendMode": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndBlendUV1": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndBumpMap": {
+    "texture": true,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndBumpScale": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndColor": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndCustomNormal": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndEnableLighting": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndLod": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndMainStrength": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndNormalStrength": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndPerspective": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndShadowMask": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndTex": {
+    "texture": true,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndVRParallaxStrength": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCap2ndZRotCancel": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_MatCapApplyTransparency": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapBackfaceMask": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapBlend": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapBlendMask": {
+    "texture": true,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapBlendMode": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapBlendUV1": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapBumpMap": {
+    "texture": true,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapBumpScale": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapColor": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapCustomNormal": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapEnableLighting": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapLod": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapMainStrength": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapMul": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapNormalStrength": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapPerspective": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapShadowMask": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapTex": {
+    "texture": true,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapVRParallaxStrength": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_MatCapZRotCancel": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_Metallic": {
+    "texture": false,
+    "blocks": [
+      "Reflection",
+      "Gem"
+    ]
+  },
+  "_MetallicGlossMap": {
+    "texture": true,
+    "blocks": [
+      "Reflection",
+      "Gem"
+    ]
+  },
+  "_MonochromeLighting": {
+    "texture": false,
+    "blocks": [
+      "Lighting"
+    ]
+  },
+  "_OffsetFactor": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OffsetUnits": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineAlphaToMask": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineBlendOp": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineBlendOpAlpha": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineBlendOpAlphaFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineBlendOpFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineColor": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineColorMask": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineCull": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineDeleteMesh": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineDisableInVR": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineDstBlend": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineDstBlendAlpha": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineDstBlendAlphaFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineDstBlendFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineEnableLighting": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineFixWidth": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineLitApplyTex": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineLitColor": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineLitOffset": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineLitScale": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineLitShadowReceive": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineOffsetFactor": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineOffsetUnits": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineSrcBlend": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineSrcBlendAlpha": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineSrcBlendAlphaFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineSrcBlendFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineStencilComp": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_OutlineStencilFail": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_OutlineStencilPass": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_OutlineStencilReadMask": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_OutlineStencilRef": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_OutlineStencilWriteMask": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_OutlineStencilZFail": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_OutlineTex": {
+    "texture": true,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineTexHSVG": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineTex_ScrollRotate": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineVectorScale": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineVectorTex": {
+    "texture": true,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineVectorUVMode": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineVertexR2Width": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineWidth": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineWidthMask": {
+    "texture": true,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineZBias": {
+    "texture": false,
+    "blocks": [
+      "Outline"
+    ]
+  },
+  "_OutlineZClip": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineZTest": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_OutlineZWrite": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_Parallax": {
+    "texture": false,
+    "blocks": [
+      "Parallax"
+    ]
+  },
+  "_ParallaxMap": {
+    "texture": true,
+    "blocks": [
+      "Parallax"
+    ]
+  },
+  "_ParallaxOffset": {
+    "texture": false,
+    "blocks": [
+      "Parallax"
+    ]
+  },
+  "_PreAlphaToMask": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreBlendOp": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreBlendOpAlpha": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreBlendOpAlphaFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreBlendOpFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreColor": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_PreColorMask": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreCull": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreCutoff": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_PreDstBlend": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreDstBlendAlpha": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreDstBlendAlphaFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreDstBlendFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreOffsetFactor": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreOffsetUnits": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreOutType": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_PreSrcBlend": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreSrcBlendAlpha": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreSrcBlendAlphaFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreSrcBlendFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreStencilComp": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_PreStencilFail": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_PreStencilPass": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_PreStencilReadMask": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_PreStencilRef": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_PreStencilWriteMask": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_PreStencilZFail": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_PreZClip": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreZTest": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_PreZWrite": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_Ramp": {
+    "texture": true,
+    "blocks": []
+  },
+  "_Reflectance": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_ReflectionApplyTransparency": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_ReflectionBlendMode": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_ReflectionColor": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_ReflectionColorTex": {
+    "texture": true,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_ReflectionCubeColor": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_ReflectionCubeEnableLighting": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_ReflectionCubeOverride": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_ReflectionCubeTex": {
+    "texture": true,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_ReflectionNormalStrength": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_RefractionColor": {
+    "texture": false,
+    "blocks": [
+      "Refraction"
+    ]
+  },
+  "_RefractionColorFromMain": {
+    "texture": false,
+    "blocks": [
+      "Refraction"
+    ]
+  },
+  "_RefractionFresnelPower": {
+    "texture": false,
+    "blocks": [
+      "Refraction",
+      "Gem"
+    ]
+  },
+  "_RefractionStrength": {
+    "texture": false,
+    "blocks": [
+      "Refraction",
+      "Gem"
+    ]
+  },
+  "_RimApplyTransparency": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimBackfaceMask": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimBlendMode": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimBlur": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimBorder": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimColor": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimColorTex": {
+    "texture": true,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimDirRange": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimDirStrength": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimEnableLighting": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimFresnelPower": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimIndirBlur": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimIndirBorder": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimIndirColor": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimIndirRange": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimMainStrength": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimNormalStrength": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimShadeBlur": {
+    "texture": false,
+    "blocks": [
+      "RimShade"
+    ]
+  },
+  "_RimShadeBorder": {
+    "texture": false,
+    "blocks": [
+      "RimShade"
+    ]
+  },
+  "_RimShadeColor": {
+    "texture": false,
+    "blocks": [
+      "RimShade"
+    ]
+  },
+  "_RimShadeFresnelPower": {
+    "texture": false,
+    "blocks": [
+      "RimShade"
+    ]
+  },
+  "_RimShadeMask": {
+    "texture": true,
+    "blocks": [
+      "RimShade"
+    ]
+  },
+  "_RimShadeNormalStrength": {
+    "texture": false,
+    "blocks": [
+      "RimShade"
+    ]
+  },
+  "_RimShadowMask": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_RimVRParallaxStrength": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_Shadow2ndBlur": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_Shadow2ndBorder": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_Shadow2ndColor": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_Shadow2ndColorTex": {
+    "texture": true,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_Shadow2ndNormalStrength": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_Shadow2ndReceive": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_Shadow3rdBlur": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_Shadow3rdBorder": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_Shadow3rdColor": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_Shadow3rdColorTex": {
+    "texture": true,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_Shadow3rdNormalStrength": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_Shadow3rdReceive": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowAOShift": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowAOShift2": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowBlur": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowBlurMask": {
+    "texture": true,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowBlurMaskLOD": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowBorder": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowBorderColor": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowBorderMask": {
+    "texture": true,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowBorderMaskLOD": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowBorderRange": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowColor": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowColorTex": {
+    "texture": true,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowColorType": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowEnvStrength": {
+    "texture": false,
+    "blocks": [
+      "Shadow",
+      "Lighting"
+    ]
+  },
+  "_ShadowFlatBlur": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowFlatBorder": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowMainStrength": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowMaskType": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowNormalStrength": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowPostAO": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowReceive": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowStrength": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowStrengthMask": {
+    "texture": true,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShadowStrengthMaskLOD": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_ShiftBackfaceUV": {
+    "texture": false,
+    "blocks": [
+      "UV"
+    ]
+  },
+  "_Smoothness": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_SmoothnessTex": {
+    "texture": true,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_SpecularBlur": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_SpecularBorder": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_SpecularNormalStrength": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_SpecularToon": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_SrcBlend": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_SrcBlendAlpha": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_SrcBlendAlphaFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_SrcBlendFA": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_StencilComp": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_StencilFail": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_StencilPass": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_StencilReadMask": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_StencilRef": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_StencilWriteMask": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_StencilZFail": {
+    "texture": false,
+    "blocks": [
+      "Stencil"
+    ]
+  },
+  "_SubpassCutoff": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_TessEdge": {
+    "texture": false,
+    "blocks": [
+      "Tessellation"
+    ]
+  },
+  "_TessFactorMax": {
+    "texture": false,
+    "blocks": [
+      "Tessellation"
+    ]
+  },
+  "_TessShrink": {
+    "texture": false,
+    "blocks": [
+      "Tessellation"
+    ]
+  },
+  "_TessStrength": {
+    "texture": false,
+    "blocks": [
+      "Tessellation"
+    ]
+  },
+  "_TransparentMode": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_TriMask": {
+    "texture": true,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_UDIMDiscardCompile": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardMode": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow0_0": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow0_1": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow0_2": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow0_3": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow1_0": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow1_1": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow1_2": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow1_3": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow2_0": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow2_1": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow2_2": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow2_3": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow3_0": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow3_1": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow3_2": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardRow3_3": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UDIMDiscardUV": {
+    "texture": false,
+    "blocks": [
+      "UDIMDiscard"
+    ]
+  },
+  "_UseAnisotropy": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "Anisotropy"
+    ]
+  },
+  "_UseAudioLink": {
+    "texture": false,
+    "blocks": [
+      "AudioLink"
+    ]
+  },
+  "_UseBacklight": {
+    "texture": false,
+    "blocks": [
+      "Backlight"
+    ]
+  },
+  "_UseBump2ndMap": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "NormalMap2nd"
+    ]
+  },
+  "_UseBumpMap": {
+    "texture": false,
+    "blocks": [
+      "NormalMap",
+      "NormalMap1st"
+    ]
+  },
+  "_UseClippingCanceller": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_UseDither": {
+    "texture": false,
+    "blocks": [
+      "Base"
+    ]
+  },
+  "_UseEmission": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission1st"
+    ]
+  },
+  "_UseEmission2nd": {
+    "texture": false,
+    "blocks": [
+      "Emission",
+      "Emission2nd"
+    ]
+  },
+  "_UseGlitter": {
+    "texture": false,
+    "blocks": [
+      "Glitter"
+    ]
+  },
+  "_UseMain2ndTex": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor2nd"
+    ]
+  },
+  "_UseMain3rdTex": {
+    "texture": false,
+    "blocks": [
+      "MainColor",
+      "MainColor3rd"
+    ]
+  },
+  "_UseMatCap": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap1st"
+    ]
+  },
+  "_UseMatCap2nd": {
+    "texture": false,
+    "blocks": [
+      "MatCaps",
+      "MatCap2nd"
+    ]
+  },
+  "_UsePOM": {
+    "texture": false,
+    "blocks": [
+      "Parallax"
+    ]
+  },
+  "_UseParallax": {
+    "texture": false,
+    "blocks": [
+      "Parallax"
+    ]
+  },
+  "_UseReflection": {
+    "texture": false,
+    "blocks": [
+      "Reflection"
+    ]
+  },
+  "_UseRim": {
+    "texture": false,
+    "blocks": [
+      "RimLight"
+    ]
+  },
+  "_UseRimShade": {
+    "texture": false,
+    "blocks": [
+      "RimShade"
+    ]
+  },
+  "_UseShadow": {
+    "texture": false,
+    "blocks": [
+      "Shadow"
+    ]
+  },
+  "_VertexColor2FurVector": {
+    "texture": false,
+    "blocks": [
+      "Fur"
+    ]
+  },
+  "_VertexLightStrength": {
+    "texture": false,
+    "blocks": [
+      "Lighting"
+    ]
+  },
+  "_ZClip": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_ZTest": {
+    "texture": false,
+    "blocks": [
+      "Rendering"
+    ]
+  },
+  "_ZWrite": {
+    "texture": false,
+    "blocks": [
+      "Rendering",
+      "Base"
+    ]
+  },
+  "_lilDirectionalLightStrength": {
+    "texture": false,
+    "blocks": [
+      "Lighting"
+    ]
+  },
+  "_lilShadowCasterBias": {
+    "texture": false,
+    "blocks": [
+      "Shadow",
+      "Rendering"
+    ]
+  }
+}

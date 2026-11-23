@@ -75,7 +75,7 @@ namespace NW.FairyToon.Editor
                 }
             }
             if (Selection.activeGameObject != null) Scan(Selection.activeGameObject.GetComponentsInChildren<Renderer>(true));
-            Scan(Object.FindObjectsByType<Renderer>(FindObjectsInactive.Include, FindObjectsSortMode.None));
+            Scan(Object.FindObjectsByType<Renderer>(FindObjectsInactive.Include));
             return result;
         }
     }
